@@ -1,0 +1,22 @@
+backend:
+  name: git-gateway # Allows Netlify to handle authentication with GitHub/GitLab/Bitbucket
+  branch: main # Your primary branch
+  identity_url: https://YOUR_NETLIFY_SITE_NAME.netlify.app/.netlify/identity
+  gateway_url: https://YOUR_NETLIFY_SITE_NAME.netlify.app/.netlify/git-gateway
+
+media_folder: "public/uploads" # Where media files will be stored
+public_folder: "/uploads" # Base path for uploaded files in your site
+
+collections:
+  - name: "posts" # A friendly name for your collection
+    label: "Blog Posts" # Name to display in the UI
+    folder: "content/blog" # Where Markdown files will be stored relative to your project root
+    create: true # Allow users to create new posts
+    slug: "{{slug}}" # Use the title as the slug
+    fields: # The fields for your blog posts
+      - {label: "Title", name: "title", widget: "string", required: true}
+      - {label: "Publish Date", name: "date", widget: "datetime", required: true}
+      - {label: "Author", name: "author", widget: "string", default: "Jamstack IT"}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
+      - {label: "Body", name: "body", widget: "markdown", required: true}
