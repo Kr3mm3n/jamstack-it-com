@@ -3,10 +3,8 @@ backend:
   branch: main
   identity_url: https://jamstack-it-com.netlify.app/.netlify/identity
   gateway_url: https://jamstack-it-com.netlify.app/.netlify/git-gateway
-
 media_folder: "public/uploads" # Where media files will be stored
 public_folder: "/uploads" # Base path for uploaded files in your site
-
 collections:
   - name: "posts" # A friendly name for your collection
     label: "Blog Posts" # Name to display in the UI
