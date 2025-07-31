@@ -12,7 +12,7 @@ export async function getStaticProps() {
 
   // We fetch the entry with the content type "homepage"
   // limit: 1 ensures we only get one, just in case.
-  const res = await client.getEntries({ content_type: 'homepage', limit: 1 });
+  const res = await client.getEntries({ content_type: 'homePage', limit: 1 });
 
   return {
     props: {
