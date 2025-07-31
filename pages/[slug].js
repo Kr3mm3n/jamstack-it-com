@@ -5,10 +5,9 @@ import Head from 'next/head';
 // This function creates the connection to your Contentful space.
 // It uses the environment variables you have stored in Netlify.
 const client = createClient({
-  space: process.env.CONTENTFUL_SPACE_ID,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+  space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
+  accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN,
 });
-
 // This function tells Next.js which pages to build.
 // It fetches all entries with the content type "page" and gets their slugs.
 export async function getStaticPaths() {
