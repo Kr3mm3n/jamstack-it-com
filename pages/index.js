@@ -10,48 +10,51 @@ export async function getStaticProps() {
     accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN,
   });
 
-  // We fetch the entry with the content type "homepage"
-  // limit: 1 ensures we only get one, just in case.
+  // Fetching the entry with the 'homePage' ID.
+  // This is the most likely ID for a "Home Page" model.
   const res = await client.getEntries({ content_type: 'homePage', limit: 1 });
 
   return {
     props: {
-      homepage: res.items[0], // Pass the found homepage content to our component.
+      homepage: res.items[0] || null, // Pass the found content, or null if nothing is found
     },
     revalidate: 1,
   };
 }
 
 // This is the React component that displays your homepage.
-// It receives the 'homepage' data from getStaticProps.
 export default function Home({ homepage }) {
-  if (!homepage) return <div>Loading...</div>;
+  // If no homepage content is found, we show a simple message.
+  if (!homepage) {
+    return <div>Homepage content not found. Please check your Contentful entry.</div>;
+  }
 
-  const { mainHeadline, subHeadline, heroImage, mainBodyContent } = homepage.fields;
+  // Using the correct field names from your Contentful model
+  const { headline, subheadline, heroImage, body } = homepage.fields;
 
   return (
     <div>
       <Head>
-        <title>Jamstack vs WordPress Conversion | Jamstack.it</title>
-        <meta name="description" content={subHeadline} />
+        <title>{headline} | Jamstack.it</title>
+        {subheadline && <meta name="description" content={subheadline} />}
       </Head>
 
       <header>
         {/* We check if a heroImage exists before trying to display it */}
-        {heroImage && (
+        {heroImage && heroImage.fields && (
           <Image
             src={'https:' + heroImage.fields.file.url}
             width={heroImage.fields.file.details.image.width}
             height={heroImage.fields.file.details.image.height}
-            alt={heroImage.fields.title}
+            alt={heroImage.fields.title || 'Hero Image'}
           />
         )}
-        <h1>{mainHeadline}</h1>
-        <p>{subHeadline}</p>
+        <h1>{headline}</h1>
+        {subheadline && <p>{subheadline}</p>}
       </header>
 
       <main>
-        {documentToReactComponents(mainBodyContent)}
+        {body && documentToReactComponents(body)}
       </main>
     </div>
   );
