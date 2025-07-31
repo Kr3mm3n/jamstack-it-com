@@ -1,9 +1,9 @@
 import Head from 'next/head';
-import { getAllPostIds, getPostData } from '../../lib/posts';
+import { getAllPostIds, getPostData } from '../../lib/contentful-posts';
 import Date from '../../components/date';
 
 export async function getStaticPaths() {
-  const paths = getAllPostIds();
+const paths = await getAllPostIds();
   return {
     paths,
     fallback: false,

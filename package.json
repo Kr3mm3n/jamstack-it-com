@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "contentful": "^11.7.15",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
     "next": "15.4.5",
